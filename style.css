@@ -6,9 +6,39 @@
 }
 
 /* —— body + fonts —— */
+/* Halesworth eText Bold (preferred). To use this font across browsers,
+   add the font files to `fonts/` and uncomment or provide working URLs.
+   If the font is installed locally, the `local()` lookup will use it.
+*/
+@font-face {
+  font-family: "Halesworth eText";
+  src: local("Halesworth eText Bold"), local("Halesworth eText"),
+    url("fonts/Halesworth-eText-Bold.woff2") format("woff2"),
+    url("fonts/Halesworth-eText-Bold.woff") format("woff");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Helvetica Now Display W05 Regular for chatbot text (preferred).
+   To make this available, add the font files to `fonts/` or ensure it's installed locally.
+*/
+@font-face {
+  font-family: "Helvetica Now Display W05";
+  src: local("Helvetica Now Display W05 Reg"), local("Helvetica Now Display"),
+    url("fonts/HelveticaNowDisplayW05-Reg.woff2") format("woff2"),
+    url("fonts/HelveticaNowDisplayW05-Reg.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 body {
-  font-family: "Montserrat", Arial, Helvetica, sans-serif;
-  color: #333;
+  /* Prefer Halesworth eText Bold if available, with fallbacks */
+  font-family: "Halesworth eText", "Halesworth eText Bold", Georgia,
+    "Times New Roman", serif;
+  font-weight: 700; /* bold by default as requested */
+  color: #000000;
   display: flex;
   justify-content: center;
 }
@@ -20,14 +50,23 @@ body {
 
 /* header */
 .site-header {
-  text-align: center;
-  padding-top: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding-top: 30px;
 }
 
 .site-title {
-  font-size: 22px;
+  font-size: 50px;
   font-weight: 500;
-  margin-bottom: 10px;
+  margin-left: 30px;
+}
+
+/* logo in header */
+.site-logo {
+  height: 56px;
+  width: auto;
 }
 
 /* chat window */
@@ -36,7 +75,8 @@ body {
 }
 
 .chat-window {
-  height: 360px;
+  /* make the chat window nearly the full height of the viewport */
+  height: calc(100vh - 220px);
   border: 1px solid #000;
   padding: 20px;
   font-size: 18px;
@@ -46,6 +86,15 @@ body {
   white-space: pre-line;
 }
 
+/* Use Helvetica Now Display W05 Reg for text inside the chatbot area */
+.chat-window,
+.chat-window .message,
+.chat-form input,
+.chat-form button {
+  font-family: "Helvetica Now Display W05", Helvetica, Arial, sans-serif;
+  font-weight: 400; /* regular */
+}
+
 /* messages */
 .msg {
   margin-bottom: 14px;
@@ -53,11 +102,38 @@ body {
 }
 
 .msg.user {
-  color: #000;
+  color: #ffffff;
 }
 
 .msg.ai {
-  color: #666666;
+  color: #000000;
+}
+
+/* chat message bubbles (text-conversation style) */
+.message {
+  display: block;
+  max-width: 72%;
+  padding: 14px 16px;
+  margin-bottom: 20px; /* larger vertical gap between messages */
+  border: none; /* remove black border per request */
+  color: #000;
+  line-height: 1.4;
+  white-space: pre-wrap; /* preserve newlines but wrap long lines */
+  border-radius: 14px; /* rounded corners */
+}
+
+.message.assistant {
+  margin-right: auto; /* align left */
+  text-align: left;
+  background: #000000; /* AI response background */
+  color: #ffffff; /* white text for contrast */
+}
+
+.message.user {
+  margin-left: auto; /* align right */
+  text-align: right;
+  background: #ff003b; /* user message background */
+  color: #ffffff; /* white text for contrast */
 }
 
 /* input row */
@@ -99,7 +175,7 @@ body {
 }
 
 .chat-form button:hover {
-  background: #666666;
+  background: #000000;
 }
 
 .chat-form button:focus {
@@ -125,7 +201,7 @@ body {
   margin: 60px 0 40px;
   text-align: center;
   font-size: 14px;
-  color: #666;
+  color: #000000;
 }
 
 .site-footer nav {
@@ -139,5 +215,5 @@ body {
 }
 
 .site-footer a:hover {
-  color: #666666;
+  color: #000000;
 }
